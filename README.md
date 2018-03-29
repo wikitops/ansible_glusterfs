@@ -46,7 +46,7 @@ Current machine states:
 
 gfsserver01                  running (virtualbox)
 gfsserver02                  running (virtualbox)
-agfsclient01                 running (virtualbox)
+gfsclient01                  running (virtualbox)
 ```
 
 #### Deployment
