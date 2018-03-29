@@ -1,0 +1,38 @@
+---
+
+- name: GLUSTERFS | Create directories
+  file:
+    path: "{{ item.bricks }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items: "{{ glusterfs_volumes }}"
+
+- name: GLUSTERFS | Install server
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - glusterfs-server
+  notify: Restart glusterfs-server
+
+- block:
+
+  - name: GLUSTERFS | Configure peers
+    shell: gluster peer probe {{ item }}
+    with_items: "{{ groups['glusterfs_server'] }}"
+
+  - name: GLUSTERFS | Create volumes
+    gluster_volume:
+      state: "{{ item.state | default('present') }}"
+      name: "{{ item.name }}"
+      bricks: "{{ item.bricks }}"
+      replicas: "{{ item.replicas | default(0) }}"
+      cluster: "{{ groups['glusterfs_server'] }}"
+      transport: "{{ item.transport | default('tcp') }}"
+      start_on_create: "{{ item.start_on_create | default('yes') }}"
+      force: "{{ item.force | default('yes') }}"
+    with_items: "{{ glusterfs_volumes }}"
+
+  when: inventory_hostname == groups['glusterfs_server'][0]

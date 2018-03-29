@@ -1,0 +1,48 @@
+---
+
+- name: GLUSTERFS | Install client
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - glusterfs-client
+
+- name: GLUSTERFS | Manage directories
+  file:
+    state: directory
+    path: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0755
+  with_items: "{{ glusterfs_volumes }}"
+
+- name: GLUSTERFS | Remove old mount point
+  lineinfile:
+    dest: /etc/fstab
+    regexp: "^{{ item.src }} {{ item.dest }}"
+    state: absent
+  with_items: "{{ glusterfs_volumes }}"
+
+- name: GLUSTERFS | Unmount old mount point
+  mount:
+    path: "{{ item.dest }}"
+    state: unmounted
+  with_items: "{{ glusterfs_volumes }}"
+
+- name: GLUSTERFS | Mount volumes
+  mount:
+    path: "{{ item.dest }}"
+    src: "{{ item.src }}"
+    fstype: glusterfs
+    opts: "{{ item.options }}"
+    state: mounted
+  with_items: "{{ glusterfs_volumes }}"
+
+- name: GLUSTERFS | Manage permissions on volumes
+  file:
+    path: "{{ item.dest }}"
+    state: directory
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+  with_items: "{{ glusterfs_volumes }}"

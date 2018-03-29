@@ -1,0 +1,7 @@
+---
+
+- name: Restart glusterfs-server
+  systemd:
+    name: glusterfs-server
+    state: started
+    enabled: yes

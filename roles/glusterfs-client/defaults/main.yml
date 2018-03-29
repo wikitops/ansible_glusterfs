@@ -1,0 +1,17 @@
+---
+
+glusterfs_storage_dir: /mnt
+
+glusterfs_volumes:
+  - src: "{{ groups['glusterfs_server'][0] }}:/data1"
+    dest: "{{ glusterfs_storage_dir }}/data1"
+    options: defaults,_netdev
+    owner: root
+    group: root
+    mode: "0755"
+  - src: "{{ groups['glusterfs_server'][0] }}:/data2"
+    dest: "{{ glusterfs_storage_dir }}/data2"
+    options: defaults,_netdev
+    owner: root
+    group: root
+    mode: "0755"

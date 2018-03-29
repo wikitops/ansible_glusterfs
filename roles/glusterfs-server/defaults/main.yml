@@ -1,0 +1,23 @@
+---
+
+glusterfs_storage_dir: /opt/glusterfs
+
+glusterfs_volumes:
+  - name: data1
+    bricks: "{{ glusterfs_storage_dir}}/data1"
+    replicas: 2
+    cluster:
+    transport: tcp
+    state: present
+    quota:
+    start_on_create: yes
+    force: yes
+  - name: data2
+    bricks: "{{ glusterfs_storage_dir}}/data2"
+    replicas: 2
+    cluster:
+    transport: tcp
+    state: present
+    quota:
+    start_on_create: yes
+    force: yes
