@@ -1,4 +1,5 @@
 # Ansible : Playbook GlusterFS
+
 The aim of this project is to deploy a simple Gluster cluster on Vagrant with some default value.
 
 ## Getting Started
@@ -9,12 +10,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to run this Ansible playbook :
 
-* [Vagrant](https://www.vagrantup.com/docs/installation/) must be installed on your computer
-* Update the Vagrant file based on your computer (CPU, memory), if needed
-* You must have download the ubuntu Xenial64 vagrant box :
+*   [Vagrant](https://www.vagrantup.com/docs/installation/) must be installed on your computer
+*   Update the Vagrant file based on your computer (CPU, memory), if needed
+*   You must have download the ubuntu Xenial64 vagrant box :
 
-```
-vagrant box add https://app.vagrantup.com/ubuntu/boxes/xenial64
+```bash
+$ vagrant box add https://app.vagrantup.com/ubuntu/boxes/xenial64
 ```
 
 ### Usage
@@ -27,19 +28,19 @@ Be aware that you need to be in the Vagrant directory to be able to run the comm
 
 Vagrant needs to init the project to run and build it :
 
-```
-vagrant up
+```bash
+$ vagrant up
 ```
 
 After build, you can check which virtual machine Vagrant has created :
 
-```
-vagrant status
+```bash
+$ vagrant status
 ```
 
 If all run like it is expected, you should see something like this :
 
-```
+```bash
 $ vagrant status
 
 Current machine states:
@@ -53,13 +54,13 @@ gfsclient01                  running (virtualbox)
 
 To deploy the Gluster cluster, you just have to run the Ansible playbook glusterfs.yml with this command :
 
-```
-ansible-playbook glusterfs.yml
+```bash
+$ ansible-playbook glusterfs.yml
 ```
 
-If everything run has expected, you should connect on any server node and get the shared volume informations with this command :
+If everything run as expected, you should connect on any server node and get the shared volume informations with this command :
 
-```
+```bash
 $ sudo gluster volume info
 
 Volume Name: data1
@@ -92,12 +93,16 @@ On the client node, you can create any file or directory in any mount volume (/m
 
 #### Destroy
 
-To destroy on what Vagrant has created, just run this command :
+To destroy the Vagrant resources created, just run this command :
 
-```
-vagrant destroy
+```bash
+$ vagrant destroy
 ```
 
 ## Author
 
 Member of Wikitops : https://www.wikitops.io/
+
+## Licence
+
+This project is licensed under the Apache License, Version 2.0. For the full text of the license, see the LICENSE file.
