@@ -1,6 +1,6 @@
 ---
 
-- name: GLUSTERFS | Create directories
+- name: GLUSTERFS SERVER | Create directories
   file:
     path: "{{ item.bricks }}"
     state: directory
@@ -9,8 +9,8 @@
     mode: 0755
   with_items: "{{ glusterfs_volumes }}"
 
-- name: GLUSTERFS | Install server
-  apt:
+- name: GLUSTERFS SERVER | Install server
+  package:
     name: "{{ item }}"
     state: present
   with_items:
@@ -19,11 +19,11 @@
 
 - block:
 
-  - name: GLUSTERFS | Configure peers
+  - name: GLUSTERFS SERVER | Configure peers
     shell: gluster peer probe {{ item }}
     with_items: "{{ groups['glusterfs_server'] }}"
 
-  - name: GLUSTERFS | Create volumes
+  - name: GLUSTERFS SERVER | Create volumes
     gluster_volume:
       state: "{{ item.state | default('present') }}"
       name: "{{ item.name }}"

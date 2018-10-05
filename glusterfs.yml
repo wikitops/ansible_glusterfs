@@ -4,12 +4,12 @@
   remote_user: vagrant
   become: yes
   roles:
-    - glusterfs-server
+    - glusterfs/server
   tags: server
 
 - hosts: glusterfs_client
   remote_user: vagrant
   become: yes
   roles:
-    - glusterfs-client
+    - glusterfs/client
   tags: client
