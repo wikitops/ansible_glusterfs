@@ -2,10 +2,8 @@
 
 - name: GLUSTERFS CLIENT | Install client
   package:
-    name: "{{ item }}"
+    name: glusterfs-client
     state: present
-  with_items:
-    - glusterfs-client
 
 - name: GLUSTERFS CLIENT | Manage directories
   file:

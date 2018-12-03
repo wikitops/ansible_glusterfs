@@ -11,10 +11,8 @@
 
 - name: GLUSTERFS SERVER | Install server
   package:
-    name: "{{ item }}"
+    name: glusterfs-server
     state: present
-  with_items:
-    - glusterfs-server
   notify: Restart glusterfs-server
 
 - block:

@@ -1,5 +1,9 @@
 ---
 
+###
+# GLUSTERFS
+###
+
 glusterfs_storage_dir: /opt/glusterfs
 
 glusterfs_volumes:
